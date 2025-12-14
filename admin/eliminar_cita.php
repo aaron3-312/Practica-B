@@ -1,9 +1,16 @@
 <?php
+session_start();
 include("../conexion.php");
 
-if (isset($_GET['id_cita'])) {
-    $id_cita = intval($_GET['id_cita']);
-    $sql = "DELETE FROM citas WHERE id_cita = '$id_cita'";
+if (!isset($_SESSION['usuario'])) {
+    header("Location: ../login.php");
+    exit();
+}
+
+if (isset($_GET['id'])) {
+    $id_cita = intval($_GET['id']);
+
+    $sql = "DELETE FROM citas WHERE id_cita = $id_cita";
 
     if ($conn->query($sql) === TRUE) {
         echo "<script>
@@ -12,7 +19,7 @@ if (isset($_GET['id_cita'])) {
               </script>";
     } else {
         echo "<script>
-                alert('❌ Error al eliminar la cita: " . addslashes($conn->error) . "');
+                alert('❌ Error al eliminar la cita.');
                 window.location.href = 'index.php';
               </script>";
     }
