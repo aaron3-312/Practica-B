@@ -3,32 +3,12 @@ session_start();
 include("../conexion.php");
 
 if (!isset($_SESSION['usuario'])) {
-    header("Location: ../login.php");
-    exit();
+    die("❌ No hay sesión");
 }
 
-if (isset($_GET['id'])) {
-    $id_cita = intval($_GET['id']);
-
-    $sql = "DELETE FROM citas WHERE id_cita = $id_cita";
-
-    if ($conn->query($sql)) {
-        echo "<script>
-                alert('✅ Cita eliminada correctamente.');
-                window.location.href = 'index.php';
-              </script>";
-    } else {
-        echo "<script>
-                alert('❌ Error al eliminar la cita.');
-                window.location.href = 'index.php';
-              </script>";
-    }
-} else {
-    echo "<script>
-            alert('⚠ No se especificó ninguna cita para eliminar.');
-            window.location.href = 'index.php';
-          </script>";
+if (!isset($_GET['id'])) {
+    die("❌ No llegó el ID");
 }
 
-$conn->close();
-?>
+$id_cita = intval($_GET['id']);
+die("✅ ID recibido: " . $id_cita);
