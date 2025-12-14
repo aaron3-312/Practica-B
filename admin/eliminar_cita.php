@@ -12,7 +12,7 @@ if (isset($_GET['id'])) {
 
     $sql = "DELETE FROM citas WHERE id_cita = $id_cita";
 
-    if ($conn->query($sql) === TRUE) {
+    if ($conn->query($sql)) {
         echo "<script>
                 alert('✅ Cita eliminada correctamente.');
                 window.location.href = 'index.php';
